@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { updateID, updateUsername, updatePassword, updateProfilePicture } from '../../ducks/reducer';
 
 class Auth extends Component {
-  constructor() {
-    super()
-    this.state = {
-      username: '',
-      password: ''
-    }
-  }
-
-  updateUsername = (value) => {
-    this.setState({username: value});
-  }
-
-  updatePassword = (value) => {
-    this.setState({password: value});
-  }
 
   loginUser = () => {
     axios.post("http://localhost:8080/login", {
-      username: this.state.username,
-      password: this.state.password
+      username: this.props.username,
+      password: this.props.password
     })
     .then((response) => {
       console.log(response);
@@ -35,8 +22,8 @@ class Auth extends Component {
 
   registerUser = () => {
     axios.post("http://localhost:8080/register", {
-      username: this.state.username,
-      password: this.state.password
+      username: this.props.username,
+      password: this.props.password
     })
     .then(() => {
       this.props.history.push('/dashboard');
@@ -44,15 +31,16 @@ class Auth extends Component {
   }
 
   render() {
+    const { updateUsername, updatePassword } = this.props;
     return (
       <div>
         Username:
         <br />
-        <input type='text' onChange={(e) => this.updateUsername(e.target.value)} placeholder='username' />
+        <input type='text' onChange={(e) => updateUsername(e.target.value)} value={this.props.username} placeholder='username' />
         <br />
         Password:
         <br />
-        <input type='password' onChange={(e) => this.updatePassword(e.target.value)} placeholder='password' />
+        <input type='password' onChange={(e) => updatePassword(e.target.value)} value={this.props.password} placeholder='password' />
         <br />
         <button onClick={this.loginUser}>Login</button>
         <button onClick={this.registerUser}>Register</button>
@@ -61,4 +49,14 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+  const { id, username, password, profilePicture } = state;
+  return {
+    id,
+    username,
+    password,
+    profilePicture
+  }
+}
+
+export default connect(mapStateToProps, {updateID, updateUsername, updatePassword, updateProfilePicture})(Auth);
