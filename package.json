@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
@@ -25,5 +27,7 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "main": "server/index.js",
+  "proxy": "http://localhost:8080"
 }
