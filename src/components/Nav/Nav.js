@@ -9,7 +9,7 @@ function Nav(props) {
         <br/>
         Username: {props.username}
         <br />
-        Profile Picture: {props.profilePicture}
+        <img src={props.profilePicture} alt="user default" height="100px" width="100px" />
         <br />
         <button onClick={() => props.history.push('/dashboard')}>Home</button>
         <button onClick={() => props.history.push('/new')}>New Post</button>

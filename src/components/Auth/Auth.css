@@ -1,0 +1,36 @@
+.auth-background {
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(to right, #FF70A6, #FF9770, #FFD670, #E9FF70);
+}
+
+.auth-container {
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+  position: absolute;
+  top: 200px;
+  left: 325px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+}
+
+.auth-input {
+  color: white;
+  font-weight: 600;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+h1 {
+  color: white;
+}
