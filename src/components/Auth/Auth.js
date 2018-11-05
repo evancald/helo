@@ -12,13 +12,12 @@ class Auth extends Component {
       password: this.props.password
     })
     .then((response) => {
-      console.log(response);
       if (response.data) {
         this.props.updateProfilePicture(response.data[0].profile_pic);
         this.props.updateID(response.data[0].id);
         this.props.history.push('/dashboard');
       } else {
-        console.log('incorrect username or password');
+        window.alert('Incorrect username or password');
       }
     })
   }
@@ -26,10 +25,11 @@ class Auth extends Component {
   registerUser = () => {
     axios.post("http://localhost:8080/register", {
       username: this.props.username,
-      password: this.props.password
+      password: this.props.password,
+      profile_pic: `https://robohash.org/${this.props.username}`
     })
     .then(() => {
-      this.props.history.push('/dashboard');
+      this.loginUser();
     })
   }
 

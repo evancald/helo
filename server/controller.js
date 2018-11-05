@@ -1,9 +1,9 @@
 module.exports = {
   register: (req, res) => {
-    const { username, password } = req.body;
-    req.app.get('db').register_user([username, password])
+    const { username, password, profile_pic } = req.body;
+    req.app.get('db').register_user([username, password, profile_pic])
       .then(() => {
-        res.status(200).send('registered user successfully');
+        res.status(200).send();
       })
   },
   login: (req, res) => {
@@ -17,6 +17,12 @@ module.exports = {
       } else {
         return res.status(200).send();
       }
+    })
+  },
+  getPosts: (req, res) => {
+    req.app.get('db').get_posts()
+    .then((response) => {
+      res.status(200).send(response);
     })
   }
 }

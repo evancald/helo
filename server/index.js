@@ -24,6 +24,7 @@ massive(DATABASE_STRING)
 //Endpoints
 app.post('/register', controller.register);
 app.post('/login', controller.login);
+app.get('/posts', controller.getPosts);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
