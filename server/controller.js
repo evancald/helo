@@ -22,8 +22,13 @@ module.exports = {
   getPosts: (req, res) => {
     const { userid } = req.params;
     const { userposts, search } = req.query;
+    console.log(userid, userposts, search);
     if(userposts === 'true' && search) {
       console.log('userposts is true and there is a search term');
+      req.app.get('db').get_posts_user_search([search])
+      .then((response) => {
+         return res.status(200).send(response);
+      })
     } else if (userposts === 'true' && !search) {
       console.log('userposts is true and there is no search term');
     } else if (userposts === 'false' && search) {
@@ -31,9 +36,11 @@ module.exports = {
     } else if (userposts === 'false' && !search) {
       console.log('userposts is false and there is no search term');
     }
+    /*
     req.app.get('db').get_posts()
     .then((response) => {
       res.status(200).send(response);
     })
+    */
   }
 }
