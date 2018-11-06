@@ -6,7 +6,7 @@ function Nav(props) {
   if (props.location.pathname !== '/') {
     return (
       <div className="nav-container">
-        <img src={props.profilePicture} alt="user default" height="90px" width="90px" />
+        <img className="prof-pic" src={props.profilePicture} alt="user default" height="90px" width="90px" />
         <div className="username">
           {props.username}
         </div>

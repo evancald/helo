@@ -20,6 +20,17 @@ module.exports = {
     })
   },
   getPosts: (req, res) => {
+    const { userid } = req.params;
+    const { userposts, search } = req.query;
+    if(userposts === 'true' && search) {
+      console.log('userposts is true and there is a search term');
+    } else if (userposts === 'true' && !search) {
+      console.log('userposts is true and there is no search term');
+    } else if (userposts === 'false' && search) {
+      console.log('userposts is false and there is a search term');
+    } else if (userposts === 'false' && !search) {
+      console.log('userposts is false and there is no search term');
+    }
     req.app.get('db').get_posts()
     .then((response) => {
       res.status(200).send(response);
