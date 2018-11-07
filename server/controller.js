@@ -20,27 +20,43 @@ module.exports = {
     })
   },
   getPosts: (req, res) => {
-    const { userid } = req.params;
+    const userid = Number(req.params.userid);
     const { userposts, search } = req.query;
-    console.log(userid, userposts, search);
+    //console.log(userid, userposts, search);
     if(userposts === 'true' && search) {
-      console.log('userposts is true and there is a search term');
-      req.app.get('db').get_posts_user_search([search])
+      //console.log('userposts is true and there is a search term');
+      req.app.get('db').get_posts()
       .then((response) => {
-         return res.status(200).send(response);
+        const result = response.filter(post => {
+          return post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        })
+        return res.status(200).send(result);
       })
     } else if (userposts === 'true' && !search) {
-      console.log('userposts is true and there is no search term');
+      //This one will return all posts
+      //console.log('userposts is true and there is no search term');
+      req.app.get('db').get_posts()
+      .then((response) => {
+        return res.status(200).send(response);
+      })
     } else if (userposts === 'false' && search) {
-      console.log('userposts is false and there is a search term');
+      //console.log('userposts is false and there is a search term');
+      req.app.get('db').get_posts()
+      .then((response) => {
+        const result = response.filter(post => {
+          return userid !== post.id && post.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        })
+        return res.status(200).send(result);
+      })
     } else if (userposts === 'false' && !search) {
-      console.log('userposts is false and there is no search term');
+      //console.log('userposts is false and there is no search term');
+      req.app.get('db').get_posts()
+      .then((response) => {
+        const result = response.filter(post => {
+          return userid !== post.id;
+        })
+        return res.status(200).send(result);
+      })
     }
-    /*
-    req.app.get('db').get_posts()
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    */
   }
 }
