@@ -26,6 +26,7 @@ app.post('/register', controller.register);
 app.post('/login', controller.login);
 app.get('/api/posts/:userid', controller.getPosts);
 app.get('/api/post/:postid', controller.getPost);
+app.post('/api/post/:userid', controller.createPost);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);

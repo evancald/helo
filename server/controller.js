@@ -70,5 +70,14 @@ module.exports = {
     .then((response) => {
       res.status(200).send(response);
     })
+  },
+  createPost: (req, res) => {
+    const { userid } = req.params;
+    const { title, img, content } = req.body;
+    //console.log(userid, title, img, content);
+    req.app.get('db').create_post([title, img, content, userid])
+    .then(() => {
+      res.status(200).send();
+    })
   }
 }

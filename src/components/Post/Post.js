@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+//import './Post.css';
 
 class Post extends Component {
   constructor() {
@@ -26,8 +27,7 @@ class Post extends Component {
   render() {
     return (
       <div className="post-container">
-        <h1>Post</h1>
-        <span>{this.state.title}</span>
+        <h3>{this.state.title}</h3>
         <img src={this.state.img} alt="post" width="100px" height="100px" />
         <span>{this.state.content}</span>
         <img src={this.state.profPic} alt="author" width="50px" height="50px" />
