@@ -57,6 +57,11 @@ module.exports = {
         })
         return res.status(200).send(result);
       })
+    } else {
+      req.app.get('db').get_posts()
+      .then((response) => {
+        return res.status(200).send(response);
+      })
     }
   }
 }
