@@ -47,7 +47,7 @@ class Dashboard extends Component {
     const posts = this.state.posts.map((post, i) => {
       return (
         <div key={i} className="post">
-          <h3>{post.title}</h3>
+          <h3 onClick={() => this.props.history.push(`/post/${post.postid}`)}>{post.title}</h3>
           <span>by {post.username}</span>
           <img src={post.profile_pic} alt="author's avatar" height="50px" width="50px"/>
         </div>

@@ -63,5 +63,12 @@ module.exports = {
         return res.status(200).send(response);
       })
     }
+  },
+  getPost: (req, res) => {
+    const { postid } = req.params;
+    req.app.get('db').get_post([postid])
+    .then((response) => {
+      res.status(200).send(response);
+    })
   }
 }
