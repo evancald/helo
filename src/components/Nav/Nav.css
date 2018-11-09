@@ -1,6 +1,6 @@
 .nav-container {
   background-image: linear-gradient(#FF9770, #FF70A6);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;

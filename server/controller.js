@@ -58,7 +58,7 @@ module.exports = {
         return res.status(200).send(result);
       })
     } else {
-      console.log('getting all posts');
+      //console.log('getting all posts');
       req.app.get('db').get_posts()
       .then((response) => {
         return res.status(200).send(response);
@@ -73,10 +73,8 @@ module.exports = {
     })
   },
   createPost: (req, res) => {
-    console.log(req.session);
     const { userid } = req.session;
     const { title, img, content } = req.body;
-    console.log('creating post by user with id', req.session.userid);
     req.app.get('db').create_post([title, img, content, userid])
     .then(() => {
       res.status(200).send();
@@ -84,5 +82,13 @@ module.exports = {
   },
   logout: (req, res) => {
     req.session.destroy();
+    res.status(200).send();
+  },
+  getUser: (req, res) => {
+    const { userid } = req.session;
+    req.app.get('db').get_user([userid])
+    .then((response) => {
+      res.status(200).send(response);
+    })
   }
 }

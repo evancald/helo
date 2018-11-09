@@ -1,22 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Nav.css';
 import { connect } from 'react-redux';
+import { updateUsername, updateProfilePicture, resetState } from '../../ducks/reducer';
+import axios from 'axios';
 
-function Nav(props) {
-  if (props.location.pathname !== '/') {
-    return (
-      <div className="nav-container">
-        <img className="prof-pic" src={props.profilePicture} alt="user default" height="90px" width="90px" />
-        <div className="username">
-          {props.username}
+class Nav extends Component {
+
+    componentDidMount() {
+      axios.get('/api/auth/me')
+      .then((response) => {
+        const { updateUsername, updateProfilePicture } = this.props;
+        if (response.data[0].username) {
+          updateUsername(response.data[0].username);
+          updateProfilePicture(response.data[0].profile_pic);
+        }
+      })
+      .catch(err => {
+        console.log('error:', err);
+      })
+    }
+
+    logout = () => {
+      axios.post('/api/auth/logout')
+      .then(() => {
+        this.props.resetState();
+        this.props.history.push('/');
+      });
+    }
+
+  render() {
+      if (this.props.location.pathname !== '/') {
+        return (
+          <div className="nav-container">
+          <img className="prof-pic" src={this.props.profilePicture} alt="user default" height="90px" width="90px" />
+          <div className="username">
+            {this.props.username}
+          </div>
+          <button onClick={() => this.props.history.push('/dashboard')}>Home</button>
+          <button onClick={() => this.props.history.push('/new')}>New Post</button>
+          <button onClick={this.logout}>Logout</button>
         </div>
-        <button onClick={() => props.history.push('/dashboard')}>Home</button>
-        <button onClick={() => props.history.push('/new')}>New Post</button>
-        <button onClick={() => props.history.push('/')}>Logout</button>
-      </div>
-    )
-  } else {
-    return null;
+      )
+    } else {
+      return null;
+    }
   }
 }
 
@@ -28,4 +55,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps, { updateUsername, updateProfilePicture, resetState })(Nav);

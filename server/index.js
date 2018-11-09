@@ -33,6 +33,7 @@ app.get('/api/posts', controller.getPosts);
 app.get('/api/post/:postid', controller.getPost);
 app.post('/api/post', controller.createPost);
 app.post('/api/auth/logout', controller.logout);
+app.get('/api/auth/me', controller.getUser);
 
 app.listen(SERVER_PORT, () => {
   console.log(`app listening on port ${SERVER_PORT}`);

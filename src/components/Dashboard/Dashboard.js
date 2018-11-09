@@ -56,7 +56,7 @@ class Dashboard extends Component {
         <input onChange={(e) => this.updateSearchInput(e.target.value)} value={this.state.searchInput} placeholder='Search'></input>
         <button onClick={() => this.performSearch()}>Search</button>
         <button onClick={() => this.resetPosts()}>Reset</button>
-        My Posts: {this.state.myPosts? <input type='checkbox' onClick={() => this.myPosts()} checked/> : <input type='checkbox' onClick={() => this.myPosts()} /> }
+        My Posts: <input type='checkbox' onClick={() => this.myPosts()} defaultChecked/>
         <br /> 
         <br />
         <div className="post-container">
