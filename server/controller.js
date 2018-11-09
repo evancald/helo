@@ -12,6 +12,7 @@ module.exports = {
     .then((response) => {
       if (response[0]) {
         if (response[0].password === password) {
+          req.session.userid = response[0].id;
           return res.status(200).send(response);
         }
       } else {
@@ -20,9 +21,8 @@ module.exports = {
     })
   },
   getPosts: (req, res) => {
-    const userid = Number(req.params.userid);
+    const { userid } = req.session;
     const { userposts, search } = req.query;
-    //console.log(userid, userposts, search);
     if(userposts === 'true' && search) {
       //console.log('userposts is true and there is a search term');
       req.app.get('db').get_posts()
@@ -58,6 +58,7 @@ module.exports = {
         return res.status(200).send(result);
       })
     } else {
+      console.log('getting all posts');
       req.app.get('db').get_posts()
       .then((response) => {
         return res.status(200).send(response);
@@ -72,12 +73,16 @@ module.exports = {
     })
   },
   createPost: (req, res) => {
-    const { userid } = req.params;
+    console.log(req.session);
+    const { userid } = req.session;
     const { title, img, content } = req.body;
-    //console.log(userid, title, img, content);
+    console.log('creating post by user with id', req.session.userid);
     req.app.get('db').create_post([title, img, content, userid])
     .then(() => {
       res.status(200).send();
     })
+  },
+  logout: (req, res) => {
+    req.session.destroy();
   }
 }

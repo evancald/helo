@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
 import './Dashboard.css'
-//import Post from '../Post/Post';
 import axios from 'axios';
-import { connect } from 'react-redux';
 
 class Dashboard extends Component {
   constructor() {
     super()
     this.state = {
       searchInput: '',
-      myPosts: false,
+      myPosts: true,
       posts:[]
     }
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/posts/${this.props.id}`)
+    axios.get('/api/posts/')
     .then((response) => {
       this.setState({posts: response.data});
     })
   }
 
   resetPosts = () => {
-    axios.get(`http://localhost:8080/api/posts/${this.props.id}?userposts=${this.state.myPosts}`)
+    axios.get(`/api/posts?userposts=${this.state.myPosts}`)
     .then((response) => {
       this.setState({posts: response.data, searchInput: ''});
     })
   }
 
   performSearch = () => {
-    axios.get(`http://localhost:8080/api/posts/${this.props.id}?userposts=${this.state.myPosts}&search=${this.state.searchInput}`)
+    axios.get(`/api/posts?userposts=${this.state.myPosts}&search=${this.state.searchInput}`)
     .then((response) => {
       this.setState({posts: response.data});
     })
@@ -58,7 +56,8 @@ class Dashboard extends Component {
         <input onChange={(e) => this.updateSearchInput(e.target.value)} value={this.state.searchInput} placeholder='Search'></input>
         <button onClick={() => this.performSearch()}>Search</button>
         <button onClick={() => this.resetPosts()}>Reset</button>
-        <input type='checkbox' onClick={() => this.myPosts()} />My Posts <br /> 
+        My Posts: {this.state.myPosts? <input type='checkbox' onClick={() => this.myPosts()} checked/> : <input type='checkbox' onClick={() => this.myPosts()} /> }
+        <br /> 
         <br />
         <div className="post-container">
           {posts}
@@ -68,11 +67,4 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { id } = state;
-  return {
-    id
-  }
-}
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

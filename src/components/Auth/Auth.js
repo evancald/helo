@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import './Auth.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { updateID, updateUsername, updatePassword, updateProfilePicture } from '../../ducks/reducer';
+import { updateUsername, updatePassword, updateProfilePicture } from '../../ducks/reducer';
 
 class Auth extends Component {
 
   loginUser = () => {
-    axios.post("http://localhost:8080/login", {
+    axios.post("/api/auth/login", {
       username: this.props.username,
       password: this.props.password
     })
     .then((response) => {
       if (response.data) {
         this.props.updateProfilePicture(response.data[0].profile_pic);
-        this.props.updateID(response.data[0].id);
         this.props.history.push('/dashboard');
       } else {
         window.alert('Incorrect username or password');
@@ -23,7 +22,7 @@ class Auth extends Component {
   }
 
   registerUser = () => {
-    axios.post("http://localhost:8080/register", {
+    axios.post("/api/auth/register", {
       username: this.props.username,
       password: this.props.password,
       profile_pic: `https://robohash.org/${this.props.username}`
@@ -59,13 +58,12 @@ class Auth extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { id, username, password, profilePicture } = state;
+  const { username, password, profilePicture } = state;
   return {
-    id,
     username,
     password,
     profilePicture
   }
 }
 
-export default connect(mapStateToProps, {updateID, updateUsername, updatePassword, updateProfilePicture})(Auth);
+export default connect(mapStateToProps, { updateUsername, updatePassword, updateProfilePicture })(Auth);

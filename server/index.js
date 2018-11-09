@@ -3,14 +3,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const controller = require('./controller');
 const massive = require('massive');
+const session = require('express-session');
 const cors = require('cors');
 
-const { DATABASE_STRING } = process.env;
-const port = 8080;
+const { DATABASE_STRING, SESSION_SECRET, SERVER_PORT } = process.env;
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
 
 massive(DATABASE_STRING)
   .then(db => {
@@ -22,12 +27,13 @@ massive(DATABASE_STRING)
   })
 
 //Endpoints
-app.post('/register', controller.register);
-app.post('/login', controller.login);
-app.get('/api/posts/:userid', controller.getPosts);
+app.post('/api/auth/register', controller.register);
+app.post('/api/auth/login', controller.login);
+app.get('/api/posts', controller.getPosts);
 app.get('/api/post/:postid', controller.getPost);
-app.post('/api/post/:userid', controller.createPost);
+app.post('/api/post', controller.createPost);
+app.post('/api/auth/logout', controller.logout);
 
-app.listen(port, () => {
-  console.log(`app listening on port ${port}`);
+app.listen(SERVER_PORT, () => {
+  console.log(`app listening on port ${SERVER_PORT}`);
 })

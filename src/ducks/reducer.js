@@ -1,18 +1,14 @@
 const initialState = {
   username: '',
-  id: 0,
   profilePicture: ''
 }
 
-const UPDATE_ID = 'UPDATE_ID';
 const UPDATE_USERNAME = 'UPDATE_USERNAME';
 const UPDATE_PROFPIC = 'UPDATE_PROFPIC';
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 
 function reducer(state = initialState, action) {
   switch(action.type) {
-    case UPDATE_ID:
-      return Object.assign({}, state, {id: action.payload});
     case UPDATE_USERNAME:
       return Object.assign({}, state, {username: action.payload});
     case UPDATE_PASSWORD:
@@ -21,13 +17,6 @@ function reducer(state = initialState, action) {
       return Object.assign({}, state, {profilePicture: action.payload});
     default:
       return state;
-  }
-}
-
-export function updateID(id) {
-  return {
-    type: UPDATE_ID,
-    payload: id
   }
 }
 

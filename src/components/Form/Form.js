@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Form.css';
-import { connect } from 'react-redux';
 import axios from 'axios';
 
 class Form extends Component {
@@ -18,7 +17,7 @@ class Form extends Component {
   }
 
   createPost = () => {
-    axios.post(`http://localhost:8080/api/post/${this.props.id}`, {
+    axios.post(`/api/post`, {
       title : this.state.title,
       img: this.state.img,
       content: this.state.content
@@ -56,11 +55,4 @@ class Form extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { id } = state;
-  return {
-    id
-  }
-}
-
-export default connect(mapStateToProps)(Form);
+export default Form;
