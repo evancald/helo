@@ -3,6 +3,7 @@ import './Nav.css';
 import { connect } from 'react-redux';
 import { updateUsername, updateProfilePicture, resetState } from '../../ducks/reducer';
 import axios from 'axios';
+import home from '../../assets/home.jpg';
 
 class Nav extends Component {
 
@@ -32,13 +33,17 @@ class Nav extends Component {
       if (this.props.location.pathname !== '/') {
         return (
           <div className="nav-container">
-          <img className="prof-pic" src={this.props.profilePicture} alt="user default" height="90px" width="90px" />
-          <div className="username">
-            {this.props.username}
+          <div className="nav-items">
+            <img className="prof-pic" src={this.props.profilePicture} alt="user default" height="90px" width="90px" />
+            <div className="username">
+              {this.props.username}
+            </div>
+            <button onClick={() => this.props.history.push('/dashboard')}>Home</button>
+            <button onClick={() => this.props.history.push('/new')}>New Post</button>
           </div>
-          <button onClick={() => this.props.history.push('/dashboard')}>Home</button>
-          <button onClick={() => this.props.history.push('/new')}>New Post</button>
-          <button onClick={this.logout}>Logout</button>
+          <div className="logout">
+            <button onClick={this.logout}>Logout</button>
+          </div>
         </div>
       )
     } else {

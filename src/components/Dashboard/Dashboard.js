@@ -53,12 +53,14 @@ class Dashboard extends Component {
     })
     return (
       <div className="dashboard-container">
+
+      <div className="search-bar">
         <input onChange={(e) => this.updateSearchInput(e.target.value)} value={this.state.searchInput} placeholder='Search'></input>
         <button onClick={() => this.performSearch()}>Search</button>
         <button onClick={() => this.resetPosts()}>Reset</button>
         My Posts: <input type='checkbox' onClick={() => this.myPosts()} defaultChecked/>
-        <br /> 
-        <br />
+      </div>
+
         <div className="post-container">
           {posts}
         </div>

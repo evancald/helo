@@ -5,17 +5,20 @@
 }
 
 .auth-container {
-  height: 250px;
-  width: 250px;
-  border: 1px solid black;
-  position: absolute;
-  top: 200px;
-  left: 325px;
+  top: 50%;
+  left: 50%;
+  height: 300px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
   align-content: center;
+  align-items: center;
+  position: absolute;
+  margin-top: -150px;
+  margin-left: -250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
 }
 
 .auth-input {
@@ -24,13 +27,16 @@
 }
 
 .buttons {
+  width: 300px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   align-content: center;
 }
 
-h1 {
+.title {
   color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 40px;
 }

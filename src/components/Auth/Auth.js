@@ -3,6 +3,7 @@ import './Auth.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUsername, updatePassword, updateProfilePicture } from '../../ducks/reducer';
+import logo from '../../assets/logo.png';
 
 class Auth extends Component {
 
@@ -36,8 +37,10 @@ class Auth extends Component {
     const { updateUsername, updatePassword } = this.props;
     return (
       <div className="auth-background">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
         <div className="auth-container">
-          <h1>Helo</h1>
+          <img src={logo} alt="logo" height="100px" width="100px" />
+          <div className="title">Helo</div>
           <div className="auth-input">
            Username: <input type='text' onChange={(e) => updateUsername(e.target.value)} value={this.props.username} placeholder='username' />
           </div>
@@ -45,7 +48,7 @@ class Auth extends Component {
             Password: <input type='password' onChange={(e) => updatePassword(e.target.value)} value={this.props.password} placeholder='password' />
           </div>
           <div className="buttons">
-
+              
               <button onClick={this.loginUser}>Login</button>
 
               <button onClick={this.registerUser}>Register</button>
