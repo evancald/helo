@@ -3,7 +3,6 @@ import './Nav.css';
 import { connect } from 'react-redux';
 import { updateUsername, updateProfilePicture, resetState } from '../../ducks/reducer';
 import axios from 'axios';
-import home from '../../assets/home.jpg';
 
 class Nav extends Component {
 

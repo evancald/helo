@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import './Post.css';
+import './Post.css';
 
 class Post extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class Post extends Component {
 
   componentDidMount() {
     const postid = this.props.match.params.postid;
-    axios.get(`http://localhost:8080/api/post/${postid}`)
+    axios.get(`/api/post/${postid}`)
     .then((response) => {
       this.setState({
         title: response.data[0].title,
@@ -28,10 +28,12 @@ class Post extends Component {
     return (
       <div className="post-container">
         <h3>{this.state.title}</h3>
-        <img src={this.state.img} alt="post" width="100px" height="100px" />
+        <img src={this.state.img} alt="post" width="300px" height="150px" />
         <span>{this.state.content}</span>
-        <img src={this.state.profPic} alt="author" width="50px" height="50px" />
-        <span>{this.state.username}</span>
+        <div className="byline">
+          <img src={this.state.profPic} alt="author" width="50px" height="50px" />
+          <span>by {this.state.username}</span>
+        </div>
       </div>
     )
   }

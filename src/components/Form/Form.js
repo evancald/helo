@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Form.css';
 import axios from 'axios';
+import placeholderImg from '../../assets/placeholder.png';
 
 class Form extends Component {
   constructor() {
@@ -44,8 +45,7 @@ class Form extends Component {
           <input onChange={(e) => this.handleInput('content', e.target.value)} value={this.state.content} placeholder="Write your post here!" />
         </div>
         <div>
-          Image Preview:
-          {this.state.img ? <img src={this.state.img} alt="user submitted" height="100px" width="100px" /> : <h3>Placeholder for image</h3> }
+          {this.state.img ? <img src={this.state.img} alt="user submitted" height="200px" width="300px" /> : <img src={placeholderImg} alt="placeholder" height="200px" width="300px" /> }
         </div>
         <div>
           <button onClick={() => this.createPost()}>Post</button>

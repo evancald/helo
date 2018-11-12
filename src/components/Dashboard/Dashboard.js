@@ -44,8 +44,8 @@ class Dashboard extends Component {
   render() {
     const posts = this.state.posts.map((post, i) => {
       return (
-        <div key={i} className="post">
-          <h3 onClick={() => this.props.history.push(`/post/${post.postid}`)}>{post.title}</h3>
+        <div key={i} className="post" onClick={() => this.props.history.push(`/post/${post.postid}`)}>
+          <h3>{post.title}</h3>
           <span>by {post.username}</span>
           <img src={post.profile_pic} alt="author's avatar" height="50px" width="50px"/>
         </div>
@@ -61,7 +61,7 @@ class Dashboard extends Component {
         My Posts: <input type='checkbox' onClick={() => this.myPosts()} defaultChecked/>
       </div>
 
-        <div className="post-container">
+        <div className="posts-container">
           {posts}
         </div>
       </div>
